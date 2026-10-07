@@ -1,0 +1,13 @@
+eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive
+2026-09-14-smart-quotes.eml,,,,,,,2026-09-30,,,,
+2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,
+2026-09-19-fwd-invoice.eml,,,,,,,2026-09-30,,,,
+2026-09-20-re-contract.eml,,,,,,,2026-09-30,,,,
+2026-09-21-re-lunch.eml,,,Closed with 2026-09-20-re-contract.eml,,,,2026-09-30,,,,2026-09-30
+2026-09-23-report.eml,,Pudding,Waiting for Bob,,,,2026-09-30,,2026-09-30,,
+2026-09-24-informaci-n.eml,,,,,,,2026-09-30,,,,
+2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,
+2026-09-26-your-ticket-ref-HtMl_Ref-01.eml,,,,,HtMl_Ref-01,,2026-09-30,,,,
+2026-09-27-weekly-digest-ref-PLAIN12345.eml,,,,,PLAIN12345,,2026-09-30,,,2026-09-30,
+2026-09-29-caf-menu-for-friday.eml,,,,,,,2026-09-30,,,,
+2026-09-30-project-pudding-budget.eml,,Pudding,Check the budget #urgent,2026-10-02,,pinned,2026-09-30,2026-09-30,,,

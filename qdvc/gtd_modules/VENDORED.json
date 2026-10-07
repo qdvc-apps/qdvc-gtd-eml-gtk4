@@ -1,0 +1,18 @@
+{
+  "source": "https://github.com/qdvc-apps/qdvc-gtd-eml",
+  "commit": "6d1830abdb77370bc7962e6db6f9f19debecc41c",
+  "files": {
+    "__init__.py": "c1e90af1f0da26b982b3ffd28b48486c3c33d19714f293c4a148efaa2b6f993d",
+    "config.py": "376aa14bef061c610263654e3f64d25839ff33bf262c6278e1c6e93c5407fa47",
+    "dashboard.py": "cb83a89171d6347bb0b81878ab2a0356da727420b7f5553311f71da213c7f223",
+    "emailutil.py": "3ed24b1b9a672e5ebd97eae79ccc23cb158d34c575f0a20a2898e03f7e6871c1",
+    "fs.py": "37c9badbbcaf867d170ad9683bd1ad8865b4c41557d8a59a2b2992785da0e862",
+    "ingest.py": "0523fefb7aba71d8b3d4aca6964e38e61b08640e22eed26a96d0185d1269fd6d",
+    "metadata.py": "eea033be81dcfe5863468e67b21bc7ca0970019b5c7e8313cae45556cb510c7c",
+    "metrics.py": "51f1eff82b71aed9d4028ec2b1faef68f26c781c1693f3ec61617af39047c128",
+    "naming.py": "f78735f9d0643e446390a2bfe0d619a6a3c6de34865a5c18d5cfe8ddd16e1e45",
+    "report.py": "e040bd98892e3eee362ea956bb9bab6495e27bfecd6d5a0603da4162777dde8d",
+    "site.py": "26d4a6b290d50495089b5f692ac05d34ce7cc7dbb4dfd5f9f5faf2584983c1cf",
+    "thread.py": "b8d7dc2a9e91bde5951c7b08a3d0be5adb31597fd658259334b6cdd588b68864"
+  }
+}

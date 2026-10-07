@@ -1,0 +1,2889 @@
+{
+ "today": "2026-09-30",
+ "now_utc": 1790769600,
+ "accounts_raw": [
+  {
+   "email_address": "Me@Example.com",
+   "display_name": "Work account",
+   "colour": "yellow"
+  },
+  {
+   "email_address": "me.home@example.org",
+   "colour": "purple"
+  }
+ ],
+ "accounts": [
+  {
+   "email_address": "me@example.com",
+   "display_name": "Work account",
+   "colour": "yellow"
+  },
+  {
+   "email_address": "me.home@example.org",
+   "display_name": "me.home@example.org",
+   "colour": "cyan"
+  }
+ ],
+ "normalise_accounts": [
+  {
+   "input": [
+    {
+     "email_address": "Me@Example.com",
+     "display_name": "Work account",
+     "colour": "yellow"
+    },
+    {
+     "email_address": "me.home@example.org",
+     "colour": "purple"
+    },
+    {
+     "email_address": "  "
+    },
+    "not-a-dict",
+    {
+     "email_address": "X@Y.Z",
+     "display_name": " Pad "
+    }
+   ],
+   "output": [
+    {
+     "email_address": "me@example.com",
+     "display_name": "Work account",
+     "colour": "yellow"
+    },
+    {
+     "email_address": "me.home@example.org",
+     "display_name": "me.home@example.org",
+     "colour": "cyan"
+    },
+    {
+     "email_address": "x@y.z",
+     "display_name": "Pad",
+     "colour": "cyan"
+    }
+   ]
+  }
+ ],
+ "normalise_hashtags": [
+  {
+   "input": [
+    "#urgent",
+    " #family ",
+    "#URGENT",
+    "",
+    7
+   ],
+   "output": [
+    "#urgent",
+    "#family"
+   ]
+  }
+ ],
+ "decode_mime": [
+  {
+   "input": "Plain subject",
+   "output": "Plain subject"
+  },
+  {
+   "input": "  padded subject  ",
+   "output": "padded subject"
+  },
+  {
+   "input": "=?utf-8?q?Z=C3=B6e?=",
+   "output": "Zöe"
+  },
+  {
+   "input": "=?utf-8?q?Z=C3=B6e?= and =?utf-8?b?w6k=?= x",
+   "output": "Zöe and é x"
+  },
+  {
+   "input": "=?utf-8?q?a?=  =?utf-8?q?b?=",
+   "output": "ab"
+  },
+  {
+   "input": "pre =?utf-8?q?a_b?=post",
+   "output": "pre a b post"
+  },
+  {
+   "input": "Re: =?ISO-8859-1?Q?caf=E9?=\n =?ISO-8859-1?Q?_bar?=",
+   "output": "Re: café bar"
+  },
+  {
+   "input": "=?bogus?q?abc?=",
+   "output": "=?bogus?q?abc?="
+  },
+  {
+   "input": "=?utf-8?q?bad=ZZ?=",
+   "output": "bad=ZZ"
+  },
+  {
+   "input": "=?utf-8?b?w6k?=",
+   "output": "é"
+  },
+  {
+   "input": "=?utf-8?B?SGVsbG8gV29ybGQ=?=",
+   "output": "Hello World"
+  },
+  {
+   "input": "=?us-ascii?q?a?= b",
+   "output": "a  b"
+  },
+  {
+   "input": "=?utf-8?q?=FF?=",
+   "output": "=?utf-8?q?=FF?="
+  },
+  {
+   "input": "=?windows-1252?q?=93quoted=94?=",
+   "output": "“quoted”"
+  },
+  {
+   "input": "Hello\n world",
+   "output": "Hello\n world"
+  },
+  {
+   "input": "=?UTF-8?Q?Caf=C3=A9_?= =?UTF-8?Q?cr=C3=A8me?=",
+   "output": "Café crème"
+  },
+  {
+   "input": "(comment) =?utf-8?q?x?=",
+   "output": "(comment) x"
+  },
+  {
+   "input": "",
+   "output": ""
+  }
+ ],
+ "parse_date": [
+  {
+   "input": "Wed, 03 Jun 2026 09:15:00 +0000",
+   "naive": false,
+   "output": {
+    "epoch": 1780478100,
+    "offset": 0,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Wed, 3 Jun 2026 09:15 +0100",
+   "naive": false,
+   "output": {
+    "epoch": 1780474500,
+    "offset": 3600,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "3 Jun 2026 09:15:00 -0500",
+   "naive": false,
+   "output": {
+    "epoch": 1780496100,
+    "offset": -18000,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Wed, 03 Jun 26 09:15:00 EST",
+   "naive": false,
+   "output": {
+    "epoch": 1780496100,
+    "offset": -18000,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Wed, 03 Jun 99 23:59:59 GMT",
+   "naive": false,
+   "output": {
+    "epoch": 928454399,
+    "offset": 0,
+    "day": "1999-06-03",
+    "minute": "1999-06-03 23:59"
+   }
+  },
+  {
+   "input": "Wed, 03 Jun 2026 09:15:00 -0000",
+   "naive": true,
+   "output": {
+    "epoch": 1780478100,
+    "offset": 0,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Wed, 03 Jun 2026 09:15:00",
+   "naive": true,
+   "output": {
+    "epoch": 1780478100,
+    "offset": 0,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Wed, 03 Jun 2026 09:15:00 +0530 (IST)",
+   "naive": false,
+   "output": {
+    "epoch": 1780458300,
+    "offset": 19800,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Wed,03 Jun 2026 09:15:00 +0200",
+   "naive": false,
+   "output": {
+    "epoch": 1780470900,
+    "offset": 7200,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "June 3, 2026 09:15:00 +0000",
+   "naive": false,
+   "output": {
+    "epoch": 1780478100,
+    "offset": 0,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Jun 3 2026 09:15:00 +0000",
+   "naive": false,
+   "output": {
+    "epoch": 1780478100,
+    "offset": 0,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "03-Jun-2026 09:15:00 +0000",
+   "naive": false,
+   "output": {
+    "epoch": 1780478100,
+    "offset": 0,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Wed, 03 Jun 2026 09.15.00 +0000",
+   "naive": false,
+   "output": {
+    "epoch": 1780478100,
+    "offset": 0,
+    "day": "2026-06-03",
+    "minute": "2026-06-03 09:15"
+   }
+  },
+  {
+   "input": "Wed, 31 Feb 2026 09:15:00 +0000",
+   "naive": null,
+   "output": null
+  },
+  {
+   "input": "Wed, 03 Jun 2026 25:15:00 +0000",
+   "naive": null,
+   "output": null
+  },
+  {
+   "input": "Tue, 29 Sep 2026 23:30:00 -0700",
+   "naive": false,
+   "output": {
+    "epoch": 1790749800,
+    "offset": -25200,
+    "day": "2026-09-29",
+    "minute": "2026-09-29 23:30"
+   }
+  },
+  {
+   "input": "not a date",
+   "naive": null,
+   "output": null
+  },
+  {
+   "input": "",
+   "naive": null,
+   "output": null
+  }
+ ],
+ "slugify": [
+  {
+   "input": "Meeting Minutes - Project Pudding!",
+   "output": "meeting-minutes-project-pudding"
+  },
+  {
+   "input": "Re: Re: FW: hello",
+   "output": "re-re-fw-hello"
+  },
+  {
+   "input": "Café crème",
+   "output": "caf-cr-me"
+  },
+  {
+   "input": "   ",
+   "output": ""
+  },
+  {
+   "input": "ALL CAPS 123",
+   "output": "all-caps-123"
+  },
+  {
+   "input": "a--b__c",
+   "output": "a-b-c"
+  },
+  {
+   "input": "K kelvin",
+   "output": "k-kelvin"
+  }
+ ],
+ "build_base_filename": [
+  {
+   "date": "2026-06-12",
+   "subject": "Meeting Minutes",
+   "max_chars": 40,
+   "ref": null,
+   "output": "2026-06-12-meeting-minutes"
+  },
+  {
+   "date": "2026-06-12",
+   "subject": "Meeting Minutes",
+   "max_chars": 40,
+   "ref": "8FKnj9Tx8d",
+   "output": "2026-06-12-meeting-mi-ref-8FKnj9Tx8d"
+  },
+  {
+   "date": "2026-06-12",
+   "subject": "A very long subject line that will certainly need truncating somewhere",
+   "max_chars": 60,
+   "ref": null,
+   "output": "2026-06-12-a-very-long-subject-line-that-will-certainly"
+  },
+  {
+   "date": "2026-06-12",
+   "subject": "A very long subject line that will certainly need truncating somewhere",
+   "max_chars": 60,
+   "ref": "8FKnj9Tx8d",
+   "output": "2026-06-12-a-very-long-subject-line-that-ref-8FKnj9Tx8d"
+  },
+  {
+   "date": "2026-06-12",
+   "subject": "",
+   "max_chars": 60,
+   "ref": null,
+   "output": "2026-06-12-no-subject"
+  },
+  {
+   "date": "2026-06-12",
+   "subject": "!!!",
+   "max_chars": 60,
+   "ref": "abcdef",
+   "output": "2026-06-12-no-subject-ref-abcdef"
+  },
+  {
+   "date": "2026-06-12",
+   "subject": "Subject",
+   "max_chars": 20,
+   "ref": "abcdefghijklmnopqrstuvwxyz",
+   "output": "2026-06-12-ref-a"
+  },
+  {
+   "date": "2026-06-12",
+   "subject": "trailing-dash-at-the-cut-point",
+   "max_chars": 30,
+   "ref": null,
+   "output": "2026-06-12-trailing-dash-a"
+  }
+ ],
+ "unique_filename": [
+  {
+   "base": "2026-06-12-meeting",
+   "existing": [],
+   "max_chars": 60,
+   "ref": null,
+   "output": "2026-06-12-meeting.eml"
+  },
+  {
+   "base": "2026-06-12-meeting",
+   "existing": [
+    "2026-06-12-meeting.eml"
+   ],
+   "max_chars": 60,
+   "ref": null,
+   "output": "2026-06-12-meeting-2.eml"
+  },
+  {
+   "base": "2026-06-12-meeting",
+   "existing": [
+    "2026-06-12-meeting.eml",
+    "2026-06-12-meeting-2.eml"
+   ],
+   "max_chars": 60,
+   "ref": null,
+   "output": "2026-06-12-meeting-3.eml"
+  },
+  {
+   "base": "2026-06-12-meeting-ref-8FKnj9Tx8d",
+   "existing": [
+    "2026-06-12-meeting-ref-8FKnj9Tx8d.eml"
+   ],
+   "max_chars": 40,
+   "ref": "8FKnj9Tx8d",
+   "output": "2026-06-12-meeting-2-ref-8FKnj9Tx8d.eml"
+  },
+  {
+   "base": "2026-06-12-a-long-subject-slug-here",
+   "existing": [
+    "2026-06-12-a-long-subject-slug-here.eml"
+   ],
+   "max_chars": 40,
+   "ref": null,
+   "output": "2026-06-12-a-long-subject-slug-her-2.eml"
+  }
+ ],
+ "strip_html": [
+  {
+   "input": "<p>Hi <b>Jane</b></p>",
+   "output": "Hi Jane"
+  },
+  {
+   "input": "<html><head><style>p{color:red}</style></head><body>Line<br>two<br/>three</body></html>",
+   "output": "Line\ntwo\nthree"
+  },
+  {
+   "input": "<script>alert(1)</script>Safe &amp; sound &lt;tag&gt; &quot;q&quot; &#39;s&#39;&nbsp;x",
+   "output": "Safe & sound <tag> \"q\" 's' x"
+  },
+  {
+   "input": "<p>a</p><p>b</p><p>c</p>\n\n\n\n<p>d</p>",
+   "output": "a\n\nb\n\nc\n\nd"
+  }
+ ],
+ "split_history": [
+  {
+   "input": "Thanks!\n\nOn Wed, 3 Jun 2026, Jane <j@x.com> wrote:\n> Please review\n",
+   "output": [
+    {
+     "depth": 0,
+     "text": "Thanks!"
+    },
+    {
+     "depth": 1,
+     "date": "Wed, 3 Jun 2026",
+     "from": "Jane <j@x.com>",
+     "dateParts": {
+      "y": 2026,
+      "mo": 6,
+      "d": 3
+     },
+     "text": "Please review"
+    }
+   ],
+   "summary": "Thanks!"
+  },
+  {
+   "input": "Top reply\n\nOn Wed, 3 Jun 2026 at 09:15, Jane Doe\n<jane@x.com> wrote:\n> First level\n> > Second level\n> back to first\n",
+   "output": [
+    {
+     "depth": 0,
+     "text": "Top reply"
+    },
+    {
+     "depth": 1,
+     "date": "Wed, 3 Jun 2026 at 09:15",
+     "from": "Jane Doe <jane@x.com>",
+     "dateParts": {
+      "y": 2026,
+      "mo": 6,
+      "d": 3,
+      "h": 9,
+      "mi": 15
+     },
+     "text": "First level\nback to first"
+    },
+    {
+     "depth": 2,
+     "text": "Second level"
+    }
+   ],
+   "summary": "Top reply"
+  },
+  {
+   "input": "Hi\n\n-----Original Message-----\nFrom: Bob <bob@y.com>\nSent: Tuesday, 3 August 2026 12:34\nTo: Me\nSubject: Hello\n\nOriginal body\n",
+   "output": [
+    {
+     "depth": 0,
+     "text": "Hi"
+    },
+    {
+     "depth": 1,
+     "from": "Bob <bob@y.com>",
+     "date": "Tuesday, 3 August 2026 12:34",
+     "to": "Me",
+     "subject": "Hello",
+     "dateParts": {
+      "y": 2026,
+      "mo": 8,
+      "d": 3,
+      "h": 12,
+      "mi": 34
+     },
+     "text": "Original body"
+    }
+   ],
+   "summary": "Hi"
+  },
+  {
+   "input": "Fwd below\n\nBegin forwarded message:\n\nFrom: Carol <c@z.com>\nDate: 1 June 2026 at 10:00:00 BST\nSubject: FYI\n\nForwarded text\n",
+   "output": [
+    {
+     "depth": 0,
+     "text": "Fwd below"
+    },
+    {
+     "depth": 1,
+     "from": "Carol <c@z.com>",
+     "date": "1 June 2026 at 10:00:00 BST",
+     "subject": "FYI",
+     "dateParts": {
+      "y": 2026,
+      "mo": 6,
+      "d": 1,
+      "h": 10,
+      "mi": 0,
+      "s": 0
+     },
+     "text": "Forwarded text"
+    }
+   ],
+   "summary": "Fwd below"
+  },
+  {
+   "input": "Reply\n\n________________________________\nFrom: Dan <d@q.com>\nSent: 2 Jun 2026 14:00\nTo: Me\n\nOutlook text\n",
+   "output": [
+    {
+     "depth": 0,
+     "text": "Reply"
+    },
+    {
+     "depth": 1,
+     "from": "Dan <d@q.com>",
+     "date": "2 Jun 2026 14:00",
+     "to": "Me",
+     "dateParts": {
+      "y": 2026,
+      "mo": 6,
+      "d": 2,
+      "h": 14,
+      "mi": 0
+     },
+     "text": "Outlook text"
+    }
+   ],
+   "summary": "Reply"
+  },
+  {
+   "input": "From: the archives, a story\nNot a header block.\n",
+   "output": [
+    {
+     "depth": 0,
+     "text": "From: the archives, a story\nNot a header block."
+    }
+   ],
+   "summary": "From: the archives, a story Not a header block."
+  },
+  {
+   "input": "Plain body with no quoting at all.\n",
+   "output": [
+    {
+     "depth": 0,
+     "text": "Plain body with no quoting at all."
+    }
+   ],
+   "summary": "Plain body with no quoting at all."
+  },
+  {
+   "input": "",
+   "output": [],
+   "summary": ""
+  },
+  {
+   "input": "> only quoted\n> text\n",
+   "output": [
+    {
+     "depth": 0,
+     "text": "only quoted\ntext"
+    }
+   ],
+   "summary": "only quoted text"
+  },
+  {
+   "input": "Line one\r\nLine two\r\n\r\n\r\n\r\nLine three",
+   "output": [
+    {
+     "depth": 0,
+     "text": "Line one\nLine two\n\nLine three"
+    }
+   ],
+   "summary": "Line one Line two Line three"
+  }
+ ],
+ "parse_date_text": [
+  {
+   "input": "Tuesday, 3 August 2026 12:34",
+   "output": {
+    "y": 2026,
+    "mo": 8,
+    "d": 3,
+    "h": 12,
+    "mi": 34
+   }
+  },
+  {
+   "input": "Wed, 03 Jun 2026 09:15:00 +0100",
+   "output": {
+    "y": 2026,
+    "mo": 6,
+    "d": 3,
+    "h": 9,
+    "mi": 15,
+    "s": 0,
+    "offset": 60
+   }
+  },
+  {
+   "input": "last Tuesday",
+   "output": null
+  },
+  {
+   "input": "2026-08-03 12:34:56 UTC",
+   "output": {
+    "y": 2026,
+    "mo": 8,
+    "d": 3,
+    "h": 12,
+    "mi": 34,
+    "s": 56,
+    "offset": 0
+   }
+  },
+  {
+   "input": "August 3rd, 2026 9:15 PM",
+   "output": {
+    "y": 2026,
+    "mo": 8,
+    "d": 3,
+    "h": 21,
+    "mi": 15
+   }
+  },
+  {
+   "input": "Jun 3 2026 at 12:00 AM GMT",
+   "output": {
+    "y": 2026,
+    "mo": 6,
+    "d": 3,
+    "h": 0,
+    "mi": 0,
+    "offset": 0
+   }
+  },
+  {
+   "input": "3 Sept 2026 23:59 -05:30",
+   "output": {
+    "y": 2026,
+    "mo": 9,
+    "d": 3,
+    "h": 23,
+    "mi": 59,
+    "offset": -330
+   }
+  },
+  {
+   "input": "1 June 2026 at 10:00:00 BST",
+   "output": {
+    "y": 2026,
+    "mo": 6,
+    "d": 1,
+    "h": 10,
+    "mi": 0,
+    "s": 0
+   }
+  },
+  {
+   "input": "32 Jun 2026",
+   "output": null
+  }
+ ],
+ "parse_flags": [
+  {
+   "input": "pinned",
+   "output": [
+    "pinned"
+   ]
+  },
+  {
+   "input": "pinned, urgent",
+   "output": [
+    "pinned",
+    "urgent"
+   ]
+  },
+  {
+   "input": "",
+   "output": []
+  },
+  {
+   "input": "  A  b,,C ",
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  {
+   "input": "Pinned",
+   "output": [
+    "pinned"
+   ]
+  }
+ ],
+ "colour_for_days": [
+  {
+   "days": -1,
+   "output": "green"
+  },
+  {
+   "days": 0,
+   "output": "green"
+  },
+  {
+   "days": 1,
+   "output": "green"
+  },
+  {
+   "days": 2,
+   "output": "yellow"
+  },
+  {
+   "days": 13,
+   "output": "yellow"
+  },
+  {
+   "days": 14,
+   "output": "red"
+  },
+  {
+   "days": 100,
+   "output": "red"
+  }
+ ],
+ "emails": [
+  {
+   "name": "plain",
+   "raw_base64": "RnJvbTogSmFuZSBEb2UgPGphbmVAZXhhbXBsZS5jb20+DQpUbzogTWUgPG1lQGV4YW1wbGUuY29tPiwgQm9iIDxib2JAeS5jb20+DQpDYzogY2Fyb2xAei5jb20NClN1YmplY3Q6IFByb2plY3QgcHVkZGluZzogYnVkZ2V0DQpEYXRlOiBXZWQsIDMwIFNlcCAyMDI2IDA5OjE0OjAwICswMTAwDQpNZXNzYWdlLUlEOiA8MUBleGFtcGxlLmNvbT4NCg0KSGksDQoNCkF0dGFjaGVkIGFyZSB0aGUgbnVtYmVycy4NCg0KSmFuZQ0K",
+   "subject": "Project pudding: budget",
+   "date": {
+    "epoch": 1790756040,
+    "offset": 3600,
+    "day": "2026-09-30",
+    "minute": "2026-09-30 09:14"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Hi,\n\nAttached are the numbers.\n\nJane\n",
+   "body": "Hi,\n\nAttached are the numbers.\n\nJane\n",
+   "attachments": [],
+   "from": "Jane Doe <jane@example.com>",
+   "to": "Me <me@example.com>, Bob <bob@y.com>",
+   "cc": "carol@z.com",
+   "correspondents": [
+    "Jane Doe <jane@example.com>",
+    "Bob <bob@y.com>",
+    "carol@z.com"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-30-project-pudding-budget",
+   "base_filename_40": "2026-09-30-project-pudding-budget",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Hi,\n\nAttached are the numbers.\n\nJane"
+    }
+   ],
+   "preview": "Hi, Attached are the numbers. Jane",
+   "age_days": 0
+  },
+  {
+   "name": "encoded-subject-lf",
+   "raw_base64": "RnJvbTogPT91dGYtOD9xP1o9QzM9QjZlX1NtaXRoPz0gPHpvZUBleGFtcGxlLmNvbT4KVG86IG1lQGV4YW1wbGUuY29tClN1YmplY3Q6ID0/dXRmLTg/cT9DYWY9QzM9QTlfbWVudT89CiA9P3V0Zi04P2I/SUdadmNpQkdjbWxrWVhrPT89CkRhdGU6IFR1ZSwgMjkgU2VwIDIwMjYgMjM6MzA6MDAgLTA3MDAKCk1lbnUgYXR0YWNoZWQuCg==",
+   "subject": "Café menu for Friday",
+   "date": {
+    "epoch": 1790749800,
+    "offset": -25200,
+    "day": "2026-09-29",
+    "minute": "2026-09-29 23:30"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Menu attached.\n",
+   "body": "Menu attached.\n",
+   "attachments": [],
+   "from": "Zöe Smith <zoe@example.com>",
+   "to": "me@example.com",
+   "cc": "",
+   "correspondents": [
+    "Zöe Smith <zoe@example.com>"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-29-caf-menu-for-friday",
+   "base_filename_40": "2026-09-29-caf-menu-for-friday",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Menu attached."
+    }
+   ],
+   "preview": "Menu attached.",
+   "age_days": 1
+  },
+  {
+   "name": "eightbit-subject",
+   "raw_base64": "RnJvbTogQW5vbiA8YW5vbkBleGFtcGxlLmNvbT4NClRvOiBtZUBleGFtcGxlLmNvbQ0KU3ViamVjdDogQ2Fmw6kgdGltZQ0KRGF0ZTogTW9uLCAyOCBTZXAgMjAyNiAwODowMDowMCArMDAwMA0KQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PXV0Zi04DQpDb250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiA4Yml0DQoNCkNvZmZlZSBhdCBjYWbDqT8NCg==",
+   "subject": "Caf�� time",
+   "date": {
+    "epoch": 1790582400,
+    "offset": 0,
+    "day": "2026-09-28",
+    "minute": "2026-09-28 08:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Coffee at café?\n",
+   "body": "Coffee at café?\n",
+   "attachments": [],
+   "from": "Anon <anon@example.com>",
+   "to": "me@example.com",
+   "cc": "",
+   "correspondents": [
+    "Anon <anon@example.com>"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-28-caf-time",
+   "base_filename_40": "2026-09-28-caf-time",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Coffee at café?"
+    }
+   ],
+   "preview": "Coffee at café?",
+   "age_days": 2
+  },
+  {
+   "name": "alternative",
+   "raw_base64": "RnJvbTogTmV3cyA8bmV3c0BleGFtcGxlLmNvbT4NClRvOiBtZS5ob21lQGV4YW1wbGUub3JnDQpTdWJqZWN0OiBXZWVrbHkgZGlnZXN0DQpEYXRlOiBTdW4sIDI3IFNlcCAyMDI2IDEwOjAwOjAwICswMDAwDQpNSU1FLVZlcnNpb246IDEuMA0KQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvYWx0ZXJuYXRpdmU7IGJvdW5kYXJ5PSJiMSINCg0KcHJlYW1ibGUNCi0tYjENCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD11cy1hc2NpaQ0KDQpQbGFpbiBwYXJ0DQpNZXNzYWdlIHJlZi4gUExBSU4xMjM0NQ0KLS1iMQ0KQ29udGVudC1UeXBlOiB0ZXh0L2h0bWw7IGNoYXJzZXQ9dXMtYXNjaWkNCg0KPHA+SFRNTCBwYXJ0PC9wPg0KLS1iMS0tDQplcGlsb2d1ZQ0K",
+   "subject": "Weekly digest",
+   "date": {
+    "epoch": 1790503200,
+    "offset": 0,
+    "day": "2026-09-27",
+    "minute": "2026-09-27 10:00"
+   },
+   "has_date_header": true,
+   "message_ref": "PLAIN12345",
+   "body_raw": "Plain part\nMessage ref. PLAIN12345",
+   "body": "Plain part\nMessage ref. PLAIN12345",
+   "attachments": [],
+   "from": "News <news@example.com>",
+   "to": "me.home@example.org",
+   "cc": "",
+   "correspondents": [
+    "News <news@example.com>"
+   ],
+   "own_account": "me.home@example.org",
+   "inbox": [
+    "me.home@example.org"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-27-weekly-digest-ref-PLAIN12345",
+   "base_filename_40": "2026-09-27-weekly-dig-ref-PLAIN12345",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Plain part\nMessage ref. PLAIN12345"
+    }
+   ],
+   "preview": "Plain part Message ref. PLAIN12345",
+   "age_days": 3
+  },
+  {
+   "name": "html-only-ref",
+   "raw_base64": "RnJvbTogU2VydmljZSA8c3ZjQGV4YW1wbGUuY29tPg0KVG86IG1lQGV4YW1wbGUuY29tDQpTdWJqZWN0OiBZb3VyIHRpY2tldA0KRGF0ZTogU2F0LCAyNiBTZXAgMjAyNiAxMDowMDowMCArMDAwMA0KQ29udGVudC1UeXBlOiB0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgNCg0KPGh0bWw+PGJvZHk+PHA+VGhhbmtzLjwvcD48cD5NZXNzYWdlIHJlZjogSHRNbF9SZWYtMDE8L3A+PC9ib2R5PjwvaHRtbD4NCg==",
+   "subject": "Your ticket",
+   "date": {
+    "epoch": 1790416800,
+    "offset": 0,
+    "day": "2026-09-26",
+    "minute": "2026-09-26 10:00"
+   },
+   "has_date_header": true,
+   "message_ref": "HtMl_Ref-01",
+   "body_raw": "<html><body><p>Thanks.</p><p>Message ref: HtMl_Ref-01</p></body></html>\n",
+   "body": "Thanks.\n\nMessage ref: HtMl_Ref-01",
+   "attachments": [],
+   "from": "Service <svc@example.com>",
+   "to": "me@example.com",
+   "cc": "",
+   "correspondents": [
+    "Service <svc@example.com>"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-26-your-ticket-ref-HtMl_Ref-01",
+   "base_filename_40": "2026-09-26-your-tick-ref-HtMl_Ref-01",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Thanks.\n\nMessage ref: HtMl_Ref-01"
+    }
+   ],
+   "preview": "Thanks. Message ref: HtMl_Ref-01",
+   "age_days": 4
+  },
+  {
+   "name": "base64-ref",
+   "raw_base64": "RnJvbTogTWUgPG1lQGV4YW1wbGUuY29tPg0KVG86IE1lIDxtZUBleGFtcGxlLmNvbT4NClN1YmplY3Q6IE5vdGUgdG8gc2VsZg0KRGF0ZTogRnJpLCAyNSBTZXAgMjAyNiAwNzowMDowMCArMTAwMA0KQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PXV0Zi04DQpDb250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiBiYXNlNjQNCg0KVW1WdFpXMWlaWElnZEdobElHMXBiR3N1Q2dyaWdKUUtDazFsYzNOaFoyVWdjbVZtTGlBNFJrdHVhamxVZURoa0NnbytJRTFsYzNOaA0KWjJVZ2NtVm1MaUJQVEVSU1JVWTVPVGs1Q2c9PQ0K",
+   "subject": "Note to self",
+   "date": {
+    "epoch": 1790283600,
+    "offset": 36000,
+    "day": "2026-09-25",
+    "minute": "2026-09-25 07:00"
+   },
+   "has_date_header": true,
+   "message_ref": "8FKnj9Tx8d",
+   "body_raw": "Remember the milk.\n\n—\n\nMessage ref. 8FKnj9Tx8d\n\n> Message ref. OLDREF9999\n",
+   "body": "Remember the milk.\n\n—\n\nMessage ref. 8FKnj9Tx8d\n\n> Message ref. OLDREF9999\n",
+   "attachments": [],
+   "from": "Me <me@example.com>",
+   "to": "Me <me@example.com>",
+   "cc": "",
+   "correspondents": [],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [
+    "Work account"
+   ],
+   "base_filename_60": "2026-09-25-note-to-self-ref-8FKnj9Tx8d",
+   "base_filename_40": "2026-09-25-note-to-se-ref-8FKnj9Tx8d",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Remember the milk.\n\n—\n\nMessage ref. 8FKnj9Tx8d"
+    },
+    {
+     "depth": 1,
+     "text": "Message ref. OLDREF9999"
+    }
+   ],
+   "preview": "Remember the milk. — Message ref. 8FKnj9Tx8d",
+   "age_days": 5
+  },
+  {
+   "name": "qp-latin1",
+   "raw_base64": "RnJvbTogPT9pc28tODg1OS0xP3E/Sm9zPUU5Pz0gPGpvc2VAZXhhbXBsZS5lcz4NClRvOiBtZUBleGFtcGxlLmNvbQ0KU3ViamVjdDogPT9pc28tODg1OS0xP3E/SW5mb3JtYWNpPUYzbj89DQpEYXRlOiBUaHUsIDI0IFNlcCAyMDI2IDEyOjAwOjAwICswMjAwDQpDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9aXNvLTg4NTktMQ0KQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogcXVvdGVkLXByaW50YWJsZQ0KDQpIb2xhLCBhcXU9RUQgZXN0PUUxIGxhIGluZm9ybWFjaT1GM24gcXVlIHBlZD1FRHM9DQp0ZSwgY29uIHVuYSBsPUVEbmVhIGxhcmdhLg0KPSANCkZpbg0K",
+   "subject": "Información",
+   "date": {
+    "epoch": 1790244000,
+    "offset": 7200,
+    "day": "2026-09-24",
+    "minute": "2026-09-24 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Hola, aquí está la información que pedíste, con una línea larga.\n= \nFin\n",
+   "body": "Hola, aquí está la información que pedíste, con una línea larga.\n= \nFin\n",
+   "attachments": [],
+   "from": "José <jose@example.es>",
+   "to": "me@example.com",
+   "cc": "",
+   "correspondents": [
+    "José <jose@example.es>"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-24-informaci-n",
+   "base_filename_40": "2026-09-24-informaci-n",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Hola, aquí está la información que pedíste, con una línea larga.\n= \nFin"
+    }
+   ],
+   "preview": "Hola, aquí está la información que pedíste, con una línea larga. = Fin",
+   "age_days": 6
+  },
+  {
+   "name": "mixed-attachment",
+   "raw_base64": "RnJvbTogQm9iIDxib2JAeS5jb20+DQpUbzogbWVAZXhhbXBsZS5jb20NClN1YmplY3Q6IFJlcG9ydA0KRGF0ZTogV2VkLCAyMyBTZXAgMjAyNiAxMjowMDowMCArMDAwMA0KTUlNRS1WZXJzaW9uOiAxLjANCkNvbnRlbnQtVHlwZTogbXVsdGlwYXJ0L21peGVkOyBib3VuZGFyeT1vdXRlcg0KDQotLW91dGVyDQpDb250ZW50LVR5cGU6IHRleHQvcGxhaW4NCg0KU2VlIGF0dGFjaGVkLg0KLS1vdXRlcg0KQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9wZGY7IG5hbWU9InJlcG9ydC5wZGYiDQpDb250ZW50LURpc3Bvc2l0aW9uOiBhdHRhY2htZW50OyBmaWxlbmFtZT0icmVwb3J0LnBkZiINCkNvbnRlbnQtVHJhbnNmZXItRW5jb2Rpbmc6IGJhc2U2NA0KDQpKVkJFUmkweExqUUsNCi0tb3V0ZXINCkNvbnRlbnQtVHlwZTogaW1hZ2UvcG5nDQpDb250ZW50LURpc3Bvc2l0aW9uOiBhdHRhY2htZW50OyBmaWxlbmFtZSo9VVRGLTgnJ2NhZiVDMyVBOS5wbmcNCg0KaVZCT1J3MEsNCi0tb3V0ZXINCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbjsgbmFtZT0ibm90ZXMudHh0Ig0KDQpuYW1lZCB0ZXh0DQotLW91dGVyLS0NCg==",
+   "subject": "Report",
+   "date": {
+    "epoch": 1790164800,
+    "offset": 0,
+    "day": "2026-09-23",
+    "minute": "2026-09-23 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "See attached.",
+   "body": "See attached.",
+   "attachments": [
+    "report.pdf",
+    "café.png",
+    "notes.txt"
+   ],
+   "from": "Bob <bob@y.com>",
+   "to": "me@example.com",
+   "cc": "",
+   "correspondents": [
+    "Bob <bob@y.com>"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-23-report",
+   "base_filename_40": "2026-09-23-report",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "See attached."
+    }
+   ],
+   "preview": "See attached.",
+   "age_days": 7
+  },
+  {
+   "name": "attachment-only",
+   "raw_base64": "RnJvbTogU2Nhbm5lciA8c2NhbkBleGFtcGxlLmNvbT4NClRvOiBtZUBleGFtcGxlLmNvbQ0KU3ViamVjdDogU2Nhbg0KRGF0ZTogVHVlLCAyMiBTZXAgMjAyNiAxMjowMDowMCArMDAwMA0KQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQ7IGJvdW5kYXJ5PXp6DQoNCi0tenoNCkNvbnRlbnQtVHlwZTogYXBwbGljYXRpb24vb2N0ZXQtc3RyZWFtDQpDb250ZW50LURpc3Bvc2l0aW9uOiBhdHRhY2htZW50DQoNCkFBQUENCi0tenotLQ0K",
+   "subject": "Scan",
+   "date": {
+    "epoch": 1790078400,
+    "offset": 0,
+    "day": "2026-09-22",
+    "minute": "2026-09-22 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "",
+   "body": "",
+   "attachments": [
+    "(unnamed attachment)"
+   ],
+   "from": "Scanner <scan@example.com>",
+   "to": "me@example.com",
+   "cc": "",
+   "correspondents": [
+    "Scanner <scan@example.com>"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-22-scan",
+   "base_filename_40": "2026-09-22-scan",
+   "thread": [],
+   "preview": "",
+   "age_days": 8
+  },
+  {
+   "name": "reply-thread",
+   "raw_base64": "RnJvbTogSmFuZSBEb2UgPGphbmVAZXhhbXBsZS5jb20+DQpUbzogbWVAZXhhbXBsZS5jb20NClN1YmplY3Q6IFJlOiBMdW5jaD8NCkRhdGU6IE1vbiwgMjEgU2VwIDIwMjYgMTM6MDA6MDAgKzAwMDANCg0KU291bmRzIGdvb2QuDQoNCk9uIE1vbiwgMjEgU2VwIDIwMjYgYXQgMTI6MDAsIE1lIDxtZUBleGFtcGxlLmNvbT4gd3JvdGU6DQo+IEhvdyBhYm91dCBGcmlkYXk/DQo+DQo+ID4gT24gU3VuLCBKYW5lIHdyb3RlOg0KPiA+ID4gTHVuY2g/DQo+IENoZWVycw0K",
+   "subject": "Re: Lunch?",
+   "date": {
+    "epoch": 1789995600,
+    "offset": 0,
+    "day": "2026-09-21",
+    "minute": "2026-09-21 13:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Sounds good.\n\nOn Mon, 21 Sep 2026 at 12:00, Me <me@example.com> wrote:\n> How about Friday?\n>\n> > On Sun, Jane wrote:\n> > > Lunch?\n> Cheers\n",
+   "body": "Sounds good.\n\nOn Mon, 21 Sep 2026 at 12:00, Me <me@example.com> wrote:\n> How about Friday?\n>\n> > On Sun, Jane wrote:\n> > > Lunch?\n> Cheers\n",
+   "attachments": [],
+   "from": "Jane Doe <jane@example.com>",
+   "to": "me@example.com",
+   "cc": "",
+   "correspondents": [
+    "Jane Doe <jane@example.com>"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-21-re-lunch",
+   "base_filename_40": "2026-09-21-re-lunch",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Sounds good."
+    },
+    {
+     "depth": 1,
+     "date": "Mon, 21 Sep 2026 at 12:00",
+     "from": "Me <me@example.com>",
+     "dateParts": {
+      "y": 2026,
+      "mo": 9,
+      "d": 21,
+      "h": 12,
+      "mi": 0
+     },
+     "text": "How about Friday?\n\nCheers"
+    },
+    {
+     "depth": 2,
+     "from": "Sun, Jane",
+     "text": "Lunch?"
+    }
+   ],
+   "preview": "Sounds good.",
+   "age_days": 9
+  },
+  {
+   "name": "outlook-chain",
+   "raw_base64": "RnJvbTogRGFuIDxkYW5AZXhhbXBsZS5jb20+DQpUbzogbWVAZXhhbXBsZS5jb20NClN1YmplY3Q6IFJFOiBDb250cmFjdA0KRGF0ZTogU3VuLCAyMCBTZXAgMjAyNiAxMzowMDowMCArMDAwMA0KDQpBZ3JlZWQuDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBNZSA8bWVAZXhhbXBsZS5jb20+DQpTZW50OiBTYXR1cmRheSwgMTkgU2VwdGVtYmVyIDIwMjYgMTc6MDANClRvOiBEYW4NClN1YmplY3Q6IENvbnRyYWN0DQoNClBsZWFzZSBzaWduLg0K",
+   "subject": "RE: Contract",
+   "date": {
+    "epoch": 1789909200,
+    "offset": 0,
+    "day": "2026-09-20",
+    "minute": "2026-09-20 13:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Agreed.\n\n-----Original Message-----\nFrom: Me <me@example.com>\nSent: Saturday, 19 September 2026 17:00\nTo: Dan\nSubject: Contract\n\nPlease sign.\n",
+   "body": "Agreed.\n\n-----Original Message-----\nFrom: Me <me@example.com>\nSent: Saturday, 19 September 2026 17:00\nTo: Dan\nSubject: Contract\n\nPlease sign.\n",
+   "attachments": [],
+   "from": "Dan <dan@example.com>",
+   "to": "me@example.com",
+   "cc": "",
+   "correspondents": [
+    "Dan <dan@example.com>"
+   ],
+   "own_account": "Work account",
+   "inbox": [
+    "Work account"
+   ],
+   "sent": [],
+   "base_filename_60": "2026-09-20-re-contract",
+   "base_filename_40": "2026-09-20-re-contract",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Agreed."
+    },
+    {
+     "depth": 1,
+     "from": "Me <me@example.com>",
+     "date": "Saturday, 19 September 2026 17:00",
+     "to": "Dan",
+     "subject": "Contract",
+     "dateParts": {
+      "y": 2026,
+      "mo": 9,
+      "d": 19,
+      "h": 17,
+      "mi": 0
+     },
+     "text": "Please sign."
+    }
+   ],
+   "preview": "Agreed.",
+   "age_days": 10
+  },
+  {
+   "name": "forwarded-rfc822",
+   "raw_base64": "RnJvbTogTWUgPG1lQGV4YW1wbGUuY29tPg0KVG86IG1lLmhvbWVAZXhhbXBsZS5vcmcNClN1YmplY3Q6IEZ3ZDogSW52b2ljZQ0KRGF0ZTogU2F0LCAxOSBTZXAgMjAyNiAxMzowMDowMCArMDAwMA0KQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQ7IGJvdW5kYXJ5PWZ3DQoNCi0tZncNCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbg0KDQpGb3J3YXJkaW5nIHRoaXMuDQotLWZ3DQpDb250ZW50LVR5cGU6IG1lc3NhZ2UvcmZjODIyDQoNCkZyb206IEJpbGxpbmcgPGJpbGxAZXhhbXBsZS5jb20+DQpTdWJqZWN0OiBJbnZvaWNlDQpDb250ZW50LVR5cGU6IHRleHQvcGxhaW4NCg0KSW52b2ljZSBib2R5DQotLWZ3LS0NCg==",
+   "subject": "Fwd: Invoice",
+   "date": {
+    "epoch": 1789822800,
+    "offset": 0,
+    "day": "2026-09-19",
+    "minute": "2026-09-19 13:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Forwarding this.",
+   "body": "Forwarding this.",
+   "attachments": [],
+   "from": "Me <me@example.com>",
+   "to": "me.home@example.org",
+   "cc": "",
+   "correspondents": [],
+   "own_account": "me.home@example.org",
+   "inbox": [
+    "me.home@example.org"
+   ],
+   "sent": [
+    "Work account"
+   ],
+   "base_filename_60": "2026-09-19-fwd-invoice",
+   "base_filename_40": "2026-09-19-fwd-invoice",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Forwarding this."
+    }
+   ],
+   "preview": "Forwarding this.",
+   "age_days": 11
+  },
+  {
+   "name": "named-timezone",
+   "raw_base64": "RnJvbTogamFuZUBleGFtcGxlLmNvbSAoSmFuZSBDb21tZW50KQ0KVG86ICJEb2UsIEphbmUiIDxqYW5lLmRvZUBleGFtcGxlLmNvbT4sIFRlYW06IGFAeC5jb20sIGJAeS5jb207DQpTdWJqZWN0OiBUaW1lem9uZXMNCkRhdGU6IEZyaSwgMTggU2VwIDI2IDIwOjAwOjAwIEVTVA0KDQpCb2R5DQo=",
+   "subject": "Timezones",
+   "date": {
+    "epoch": 1789779600,
+    "offset": -18000,
+    "day": "2026-09-18",
+    "minute": "2026-09-18 20:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Body\n",
+   "body": "Body\n",
+   "attachments": [],
+   "from": "Jane Comment <jane@example.com>",
+   "to": "Doe, Jane <jane.doe@example.com>, a@x.com, b@y.com",
+   "cc": "",
+   "correspondents": [
+    "Jane Comment <jane@example.com>",
+    "Doe, Jane <jane.doe@example.com>",
+    "a@x.com",
+    "b@y.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-18-timezones",
+   "base_filename_40": "2026-09-18-timezones",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Body"
+    }
+   ],
+   "preview": "Body",
+   "age_days": 12
+  },
+  {
+   "name": "no-boundary",
+   "raw_base64": "RnJvbTogeEBleGFtcGxlLmNvbQ0KU3ViamVjdDogQnJva2VuIG11bHRpcGFydA0KRGF0ZTogVGh1LCAxNyBTZXAgMjAyNiAxMjowMDowMCArMDAwMA0KQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQNCg0KSnVzdCB0ZXh0IHJlYWxseS4NCg==",
+   "subject": "Broken multipart",
+   "date": {
+    "epoch": 1789646400,
+    "offset": 0,
+    "day": "2026-09-17",
+    "minute": "2026-09-17 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Just text really.\n",
+   "body": "Just text really.\n",
+   "attachments": [],
+   "from": "x@example.com",
+   "to": "",
+   "cc": "",
+   "correspondents": [
+    "x@example.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-17-broken-multipart",
+   "base_filename_40": "2026-09-17-broken-multipart",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Just text really."
+    }
+   ],
+   "preview": "Just text really.",
+   "age_days": 13
+  },
+  {
+   "name": "long-subject-ref",
+   "raw_base64": "RnJvbTogeEBleGFtcGxlLmNvbQ0KU3ViamVjdDogQW4gZXh0cmVtZWx5IGxvbmcgc3ViamVjdCBsaW5lIHRoYXQgZ29lcyBvbiBhbmQgb24gYWJvdXQgdGhlIHF1YXJ0ZXJseSBmaWd1cmVzDQpEYXRlOiBXZWQsIDE2IFNlcCAyMDI2IDEyOjAwOjAwICswMDAwDQoNClRleHQNCg0KTWVzc2FnZSAgcmVmLjogIExvbmdSZWZfMTIzNDU2DQo=",
+   "subject": "An extremely long subject line that goes on and on about the quarterly figures",
+   "date": {
+    "epoch": 1789560000,
+    "offset": 0,
+    "day": "2026-09-16",
+    "minute": "2026-09-16 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": "LongRef_123456",
+   "body_raw": "Text\n\nMessage  ref.:  LongRef_123456\n",
+   "body": "Text\n\nMessage  ref.:  LongRef_123456\n",
+   "attachments": [],
+   "from": "x@example.com",
+   "to": "",
+   "cc": "",
+   "correspondents": [
+    "x@example.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-16-an-extremely-long-subject-ref-LongRef_123456",
+   "base_filename_40": "2026-09-16-an-ext-ref-LongRef_123456",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Text\n\nMessage  ref.:  LongRef_123456"
+    }
+   ],
+   "preview": "Text Message ref.: LongRef_123456",
+   "age_days": 14
+  },
+  {
+   "name": "unknown-charset",
+   "raw_base64": "RnJvbTogeEBleGFtcGxlLmNvbQ0KU3ViamVjdDogT2RkIGNoYXJzZXQNCkRhdGU6IFR1ZSwgMTUgU2VwIDIwMjYgMTI6MDA6MDAgKzAwMDANCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD14LXVua25vd24tdGhpbmcNCg0KY2Fm6Q0K",
+   "subject": "Odd charset",
+   "date": {
+    "epoch": 1789473600,
+    "offset": 0,
+    "day": "2026-09-15",
+    "minute": "2026-09-15 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "caf�\n",
+   "body": "caf�\n",
+   "attachments": [],
+   "from": "x@example.com",
+   "to": "",
+   "cc": "",
+   "correspondents": [
+    "x@example.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-15-odd-charset",
+   "base_filename_40": "2026-09-15-odd-charset",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "caf�"
+    }
+   ],
+   "preview": "caf�",
+   "age_days": 15
+  },
+  {
+   "name": "cp1252",
+   "raw_base64": "RnJvbTogeEBleGFtcGxlLmNvbQ0KU3ViamVjdDogU21hcnQgcXVvdGVzDQpEYXRlOiBNb24sIDE0IFNlcCAyMDI2IDEyOjAwOjAwICswMDAwDQpDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9IndpbmRvd3MtMTI1MiINCg0Kk0hlbGxvlCCWIGl0knMgaGVyZQ0K",
+   "subject": "Smart quotes",
+   "date": {
+    "epoch": 1789387200,
+    "offset": 0,
+    "day": "2026-09-14",
+    "minute": "2026-09-14 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "“Hello” – it’s here\n",
+   "body": "“Hello” – it’s here\n",
+   "attachments": [],
+   "from": "x@example.com",
+   "to": "",
+   "cc": "",
+   "correspondents": [
+    "x@example.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-14-smart-quotes",
+   "base_filename_40": "2026-09-14-smart-quotes",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "“Hello” – it’s here"
+    }
+   ],
+   "preview": "“Hello” – it’s here",
+   "age_days": 16
+  },
+  {
+   "name": "unix-from",
+   "raw_base64": "RnJvbSBzZW5kZXJAZXhhbXBsZS5jb20gTW9uIFNlcCAxNCAxMjowMDowMCAyMDI2DQpGcm9tOiBzZW5kZXJAZXhhbXBsZS5jb20NClN1YmplY3Q6IE1ib3ggc3R5bGUNCkRhdGU6IFN1biwgMTMgU2VwIDIwMjYgMTI6MDA6MDAgKzAwMDANCg0KQm9keQ0K",
+   "subject": "Mbox style",
+   "date": {
+    "epoch": 1789300800,
+    "offset": 0,
+    "day": "2026-09-13",
+    "minute": "2026-09-13 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Body\n",
+   "body": "Body\n",
+   "attachments": [],
+   "from": "sender@example.com",
+   "to": "",
+   "cc": "",
+   "correspondents": [
+    "sender@example.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-13-mbox-style",
+   "base_filename_40": "2026-09-13-mbox-style",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Body"
+    }
+   ],
+   "preview": "Body",
+   "age_days": 17
+  },
+  {
+   "name": "missing-separator",
+   "raw_base64": "RnJvbTogeEBleGFtcGxlLmNvbQpTdWJqZWN0OiBObyBibGFuayBsaW5lCkRhdGU6IFNhdCwgMTIgU2VwIDIwMjYgMTI6MDA6MDAgKzAwMDAKVGhpcyBsaW5lIGlzIG5vdCBhIGhlYWRlcgpNb3JlIGJvZHkK",
+   "subject": "No blank line",
+   "date": {
+    "epoch": 1789214400,
+    "offset": 0,
+    "day": "2026-09-12",
+    "minute": "2026-09-12 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "This line is not a header\nMore body\n",
+   "body": "This line is not a header\nMore body\n",
+   "attachments": [],
+   "from": "x@example.com",
+   "to": "",
+   "cc": "",
+   "correspondents": [
+    "x@example.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-12-no-blank-line",
+   "base_filename_40": "2026-09-12-no-blank-line",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "This line is not a header\nMore body"
+    }
+   ],
+   "preview": "This line is not a header More body",
+   "age_days": 18
+  },
+  {
+   "name": "folded-plain-subject",
+   "raw_base64": "RnJvbTogeEBleGFtcGxlLmNvbQ0KU3ViamVjdDogQSBzdWJqZWN0IGZvbGRlZA0KICAgYWNyb3NzIHR3byBsaW5lcw0KRGF0ZTogRnJpLCAxMSBTZXAgMjAyNiAxMjowMDowMCArMDAwMA0KDQpCb2R5DQo=",
+   "subject": "A subject folded\n   across two lines",
+   "date": {
+    "epoch": 1789128000,
+    "offset": 0,
+    "day": "2026-09-11",
+    "minute": "2026-09-11 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "Body\n",
+   "body": "Body\n",
+   "attachments": [],
+   "from": "x@example.com",
+   "to": "",
+   "cc": "",
+   "correspondents": [
+    "x@example.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-11-a-subject-folded-across-two-lines",
+   "base_filename_40": "2026-09-11-a-subject-folded-across-t",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "Body"
+    }
+   ],
+   "preview": "Body",
+   "age_days": 19
+  },
+  {
+   "name": "digest",
+   "raw_base64": "RnJvbTogbGlzdEBleGFtcGxlLmNvbQ0KU3ViamVjdDogRGlnZXN0DQpEYXRlOiBUaHUsIDEwIFNlcCAyMDI2IDEyOjAwOjAwICswMDAwDQpDb250ZW50LVR5cGU6IG11bHRpcGFydC9kaWdlc3Q7IGJvdW5kYXJ5PWRnDQoNCi0tZGcNCg0KRnJvbTogYUBleGFtcGxlLmNvbQ0KU3ViamVjdDogT25lDQoNCkZpcnN0IGRpZ2VzdCBpdGVtDQotLWRnDQoNCkZyb206IGJAZXhhbXBsZS5jb20NClN1YmplY3Q6IFR3bw0KDQpTZWNvbmQNCi0tZGctLQ0K",
+   "subject": "Digest",
+   "date": {
+    "epoch": 1789041600,
+    "offset": 0,
+    "day": "2026-09-10",
+    "minute": "2026-09-10 12:00"
+   },
+   "has_date_header": true,
+   "message_ref": null,
+   "body_raw": "First digest item",
+   "body": "First digest item",
+   "attachments": [],
+   "from": "list@example.com",
+   "to": "",
+   "cc": "",
+   "correspondents": [
+    "list@example.com"
+   ],
+   "own_account": null,
+   "inbox": [],
+   "sent": [],
+   "base_filename_60": "2026-09-10-digest",
+   "base_filename_40": "2026-09-10-digest",
+   "thread": [
+    {
+     "depth": 0,
+     "text": "First digest item"
+    }
+   ],
+   "preview": "First digest item",
+   "age_days": 20
+  }
+ ],
+ "plan_autofix": {
+  "records": [
+   {
+    "filename": "2026-06-01-a.eml",
+    "folder": "04-delegated",
+    "row": {
+     "ds_triage": "2026-06-02"
+    }
+   },
+   {
+    "filename": "2026-06-01-b.eml",
+    "folder": "04-delegated",
+    "row": {
+     "ds_delegated": "2026-06-05"
+    }
+   },
+   {
+    "filename": "2026-06-01-c.eml",
+    "folder": "06-archive",
+    "row": {
+     "ds_actionable": "2026-06-05",
+     "ds_archive": "2026-06-10"
+    }
+   },
+   {
+    "filename": "2026-06-01-d.eml",
+    "folder": "06-archive",
+    "row": {
+     "ds_reference": "2026-06-05",
+     "ds_archive": "2026-06-09"
+    }
+   },
+   {
+    "filename": "2026-06-01-e.eml",
+    "folder": "02-triage",
+    "row": {}
+   },
+   {
+    "filename": "2026-06-01-f.eml",
+    "folder": "03-actionable",
+    "row": {}
+   },
+   {
+    "filename": "2026-06-01-g.eml",
+    "folder": "03-actionable",
+    "row": {
+     "ds_triage": "2026-06-03"
+    }
+   },
+   {
+    "filename": "2026-06-01-h.eml",
+    "folder": "05-reference",
+    "row": {
+     "ds_triage": "2026-06-03",
+     "ds_reference": "2026-06-04"
+    }
+   },
+   {
+    "filename": "2026-06-01-i.eml",
+    "folder": "05-reference",
+    "row": {}
+   },
+   {
+    "filename": "2026-06-01-j.eml",
+    "folder": "06-archive",
+    "row": {}
+   },
+   {
+    "filename": "2026-06-01-k.eml",
+    "folder": "02-triage",
+    "row": {
+     "ds_triage": "2026-06-02"
+    }
+   }
+  ],
+  "fixes": [
+   {
+    "filename": "2026-06-01-a.eml",
+    "folder": "04-delegated",
+    "field": "ds_delegated",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "folder-consistency"
+   },
+   {
+    "filename": "2026-06-01-a.eml",
+    "folder": "04-delegated",
+    "field": "ds_actionable",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-b.eml",
+    "folder": "04-delegated",
+    "field": "ds_triage",
+    "old": "",
+    "new": "2026-06-05",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-b.eml",
+    "folder": "04-delegated",
+    "field": "ds_actionable",
+    "old": "",
+    "new": "2026-06-05",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-c.eml",
+    "folder": "06-archive",
+    "field": "ds_triage",
+    "old": "",
+    "new": "2026-06-05",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-d.eml",
+    "folder": "06-archive",
+    "field": "ds_triage",
+    "old": "",
+    "new": "2026-06-05",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-d.eml",
+    "folder": "06-archive",
+    "field": "ds_actionable",
+    "old": "",
+    "new": "2026-06-05",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-e.eml",
+    "folder": "02-triage",
+    "field": "ds_triage",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "folder-consistency"
+   },
+   {
+    "filename": "2026-06-01-f.eml",
+    "folder": "03-actionable",
+    "field": "ds_actionable",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "folder-consistency"
+   },
+   {
+    "filename": "2026-06-01-f.eml",
+    "folder": "03-actionable",
+    "field": "ds_triage",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-g.eml",
+    "folder": "03-actionable",
+    "field": "ds_actionable",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "folder-consistency"
+   },
+   {
+    "filename": "2026-06-01-h.eml",
+    "folder": "05-reference",
+    "field": "ds_actionable",
+    "old": "",
+    "new": "2026-06-04",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-i.eml",
+    "folder": "05-reference",
+    "field": "ds_reference",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "folder-consistency"
+   },
+   {
+    "filename": "2026-06-01-i.eml",
+    "folder": "05-reference",
+    "field": "ds_triage",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-i.eml",
+    "folder": "05-reference",
+    "field": "ds_actionable",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-j.eml",
+    "folder": "06-archive",
+    "field": "ds_archive",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "folder-consistency"
+   },
+   {
+    "filename": "2026-06-01-j.eml",
+    "folder": "06-archive",
+    "field": "ds_triage",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "date-backfill"
+   },
+   {
+    "filename": "2026-06-01-j.eml",
+    "folder": "06-archive",
+    "field": "ds_actionable",
+    "old": "",
+    "new": "2026-09-30",
+    "phase": "date-backfill"
+   }
+  ],
+  "blockers": []
+ },
+ "metrics": [
+  {
+   "filename": "2026-06-01-x.eml",
+   "row": {
+    "ds_triage": "2026-06-03",
+    "ds_actionable": "2026-06-05",
+    "ds_archive": "2026-06-10"
+   },
+   "status": "resolved",
+   "metrics": {
+    "ttS": 2,
+    "Td": 2,
+    "Wd": 5,
+    "tttR": 9
+   },
+   "email_date": "2026-06-01",
+   "triage_date": "2026-06-03",
+   "actionable_date": "2026-06-05",
+   "resolution_date": "2026-06-10",
+   "stages": [
+    [
+     "took place",
+     "2026-06-01"
+    ],
+    [
+     "triage",
+     "2026-06-03"
+    ],
+    [
+     "actionable",
+     "2026-06-05"
+    ],
+    [
+     "archive",
+     "2026-06-10"
+    ]
+   ]
+  },
+  {
+   "filename": "2026-06-01-y.eml",
+   "row": {
+    "ds_triage": "2026-06-03"
+   },
+   "status": "ongoing",
+   "metrics": {
+    "ttS": 2
+   },
+   "email_date": "2026-06-01",
+   "triage_date": "2026-06-03",
+   "actionable_date": null,
+   "resolution_date": null,
+   "stages": [
+    [
+     "took place",
+     "2026-06-01"
+    ],
+    [
+     "triage",
+     "2026-06-03"
+    ]
+   ]
+  },
+  {
+   "filename": "2026-06-05-z.eml",
+   "row": {
+    "ds_triage": "2026-06-03"
+   },
+   "status": "weird",
+   "metrics": {},
+   "email_date": "2026-06-05",
+   "triage_date": "2026-06-03",
+   "actionable_date": null,
+   "resolution_date": null,
+   "stages": []
+  },
+  {
+   "filename": "no-date.eml",
+   "row": {
+    "ds_triage": "2026-06-03"
+   },
+   "status": "weird",
+   "metrics": {},
+   "email_date": null,
+   "triage_date": "2026-06-03",
+   "actionable_date": null,
+   "resolution_date": null,
+   "stages": []
+  },
+  {
+   "filename": "2026-06-01-w.eml",
+   "row": {
+    "ds_triage": "2026-06-02",
+    "ds_actionable": "2026-06-02",
+    "ds_reference": "2026-06-09",
+    "ds_archive": "2026-06-04"
+   },
+   "status": "weird",
+   "metrics": {},
+   "email_date": "2026-06-01",
+   "triage_date": "2026-06-02",
+   "actionable_date": "2026-06-02",
+   "resolution_date": "2026-06-09",
+   "stages": []
+  },
+  {
+   "filename": "2026-06-01-v.eml",
+   "row": {
+    "ds_triage": "2026-06-02",
+    "ds_actionable": "2026-06-03",
+    "ds_delegated": "2026-06-04",
+    "ds_archive": "2026-06-20"
+   },
+   "status": "resolved",
+   "metrics": {
+    "ttS": 1,
+    "Td": 1,
+    "Wd": 17,
+    "tttR": 19
+   },
+   "email_date": "2026-06-01",
+   "triage_date": "2026-06-02",
+   "actionable_date": "2026-06-03",
+   "resolution_date": "2026-06-20",
+   "stages": [
+    [
+     "took place",
+     "2026-06-01"
+    ],
+    [
+     "triage",
+     "2026-06-02"
+    ],
+    [
+     "actionable",
+     "2026-06-03"
+    ],
+    [
+     "delegated",
+     "2026-06-04"
+    ],
+    [
+     "archive",
+     "2026-06-20"
+    ]
+   ]
+  },
+  {
+   "filename": "2026-07-15-u.eml",
+   "row": {
+    "ds_triage": "2026-07-15",
+    "ds_actionable": "2026-08-01"
+   },
+   "status": "ongoing",
+   "metrics": {
+    "ttS": 0,
+    "Td": 17
+   },
+   "email_date": "2026-07-15",
+   "triage_date": "2026-07-15",
+   "actionable_date": "2026-08-01",
+   "resolution_date": null,
+   "stages": [
+    [
+     "took place",
+     "2026-07-15"
+    ],
+    [
+     "triage",
+     "2026-07-15"
+    ],
+    [
+     "actionable",
+     "2026-08-01"
+    ]
+   ]
+  },
+  {
+   "filename": "2026-08-30-t.eml",
+   "row": {
+    "ds_triage": "2026-09-01"
+   },
+   "status": "ongoing",
+   "metrics": {
+    "ttS": 2
+   },
+   "email_date": "2026-08-30",
+   "triage_date": "2026-09-01",
+   "actionable_date": null,
+   "resolution_date": null,
+   "stages": [
+    [
+     "took place",
+     "2026-08-30"
+    ],
+    [
+     "triage",
+     "2026-09-01"
+    ]
+   ]
+  },
+  {
+   "filename": "2026-09-28-s.eml",
+   "row": {
+    "ds_triage": "2026-09-29",
+    "ds_actionable": "2026-09-29",
+    "ds_delegated": "2026-09-30"
+   },
+   "status": "resolved",
+   "metrics": {
+    "ttS": 1,
+    "Td": 0,
+    "Wd": 1,
+    "tttR": 2
+   },
+   "email_date": "2026-09-28",
+   "triage_date": "2026-09-29",
+   "actionable_date": "2026-09-29",
+   "resolution_date": "2026-09-30",
+   "stages": [
+    [
+     "took place",
+     "2026-09-28"
+    ],
+    [
+     "triage",
+     "2026-09-29"
+    ],
+    [
+     "actionable",
+     "2026-09-29"
+    ],
+    [
+     "delegated",
+     "2026-09-30"
+    ]
+   ]
+  },
+  {
+   "filename": "2025-12-31-r.eml",
+   "row": {
+    "ds_triage": "2026-01-02",
+    "ds_actionable": "2026-01-05",
+    "ds_archive": "2026-02-01"
+   },
+   "status": "resolved",
+   "metrics": {
+    "ttS": 2,
+    "Td": 3,
+    "Wd": 27,
+    "tttR": 32
+   },
+   "email_date": "2025-12-31",
+   "triage_date": "2026-01-02",
+   "actionable_date": "2026-01-05",
+   "resolution_date": "2026-02-01",
+   "stages": [
+    [
+     "took place",
+     "2025-12-31"
+    ],
+    [
+     "triage",
+     "2026-01-02"
+    ],
+    [
+     "actionable",
+     "2026-01-05"
+    ],
+    [
+     "archive",
+     "2026-02-01"
+    ]
+   ]
+  },
+  {
+   "filename": "2026-03-15-q.eml",
+   "row": {
+    "ds_triage": "bogus",
+    "ds_actionable": ""
+   },
+   "status": "ongoing",
+   "metrics": {},
+   "email_date": "2026-03-15",
+   "triage_date": null,
+   "actionable_date": null,
+   "resolution_date": null,
+   "stages": [
+    [
+     "took place",
+     "2026-03-15"
+    ]
+   ]
+  }
+ ],
+ "backlog": {
+  "stats": {
+   "count": 4,
+   "mean_age": 107.0,
+   "median_age": 99.0,
+   "oldest_age": 199,
+   "oldest_filename": "2026-03-15-q.eml",
+   "stale_count": 4,
+   "stale_threshold": 14,
+   "longest_stall_days": 199,
+   "longest_stall_filename": "2026-03-15-q.eml",
+   "longest_stall_stage": "arrival"
+  },
+  "histogram": {
+   "labels": [
+    "0–7",
+    "8–14",
+    "15–30",
+    "31–90",
+    "90+"
+   ],
+   "counts": [
+    0,
+    0,
+    0,
+    2,
+    2
+   ]
+  },
+  "weekly": {
+   "periods": [
+    "2025-12-29",
+    "2026-01-05",
+    "2026-01-12",
+    "2026-01-19",
+    "2026-01-26",
+    "2026-02-02",
+    "2026-02-09",
+    "2026-02-16",
+    "2026-02-23",
+    "2026-03-02",
+    "2026-03-09",
+    "2026-03-16",
+    "2026-03-23",
+    "2026-03-30",
+    "2026-04-06",
+    "2026-04-13",
+    "2026-04-20",
+    "2026-04-27",
+    "2026-05-04",
+    "2026-05-11",
+    "2026-05-18",
+    "2026-05-25",
+    "2026-06-01",
+    "2026-06-08",
+    "2026-06-15",
+    "2026-06-22",
+    "2026-06-29",
+    "2026-07-06",
+    "2026-07-13",
+    "2026-07-20",
+    "2026-07-27",
+    "2026-08-03",
+    "2026-08-10",
+    "2026-08-17",
+    "2026-08-24",
+    "2026-08-31",
+    "2026-09-07",
+    "2026-09-14",
+    "2026-09-21",
+    "2026-09-28"
+   ],
+   "arrivals": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1
+   ],
+   "resolutions": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ],
+   "cumulative_arrivals": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    7,
+    7,
+    7,
+    7,
+    7,
+    8
+   ],
+   "cumulative_resolutions": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4
+   ],
+   "backlog": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    4,
+    3,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4
+   ]
+  },
+  "monthly": {
+   "periods": [
+    "2025-12-01",
+    "2026-01-01",
+    "2026-02-01",
+    "2026-03-01",
+    "2026-04-01",
+    "2026-05-01",
+    "2026-06-01",
+    "2026-07-01",
+    "2026-08-01",
+    "2026-09-01"
+   ],
+   "arrivals": [
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    3,
+    1,
+    1,
+    1
+   ],
+   "resolutions": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    1
+   ],
+   "cumulative_arrivals": [
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    5,
+    6,
+    7,
+    8
+   ],
+   "cumulative_resolutions": [
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    3,
+    3,
+    3,
+    4
+   ],
+   "backlog": [
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    2,
+    3,
+    4,
+    4
+   ]
+  }
+ },
+ "scenario": [
+  {
+   "op": "initial",
+   "contents": {
+    "01-input/dup.eml": "RnJvbTogSmFuZSBEb2UgPGphbmVAZXhhbXBsZS5jb20+DQpUbzogTWUgPG1lQGV4YW1wbGUuY29tPiwgQm9iIDxib2JAeS5jb20+DQpDYzogY2Fyb2xAei5jb20NClN1YmplY3Q6IFByb2plY3QgcHVkZGluZzogYnVkZ2V0DQpEYXRlOiBXZWQsIDMwIFNlcCAyMDI2IDA5OjE0OjAwICswMTAwDQpNZXNzYWdlLUlEOiA8MUBleGFtcGxlLmNvbT4NCg0KSGksDQoNCkF0dGFjaGVkIGFyZSB0aGUgbnVtYmVycy4NCg0KSmFuZQ0K",
+    "01-input/inbox1.eml": "RnJvbTogSmFuZSBEb2UgPGphbmVAZXhhbXBsZS5jb20+DQpUbzogTWUgPG1lQGV4YW1wbGUuY29tPiwgQm9iIDxib2JAeS5jb20+DQpDYzogY2Fyb2xAei5jb20NClN1YmplY3Q6IFByb2plY3QgcHVkZGluZzogYnVkZ2V0DQpEYXRlOiBXZWQsIDMwIFNlcCAyMDI2IDA5OjE0OjAwICswMTAwDQpNZXNzYWdlLUlEOiA8MUBleGFtcGxlLmNvbT4NCg0KSGksDQoNCkF0dGFjaGVkIGFyZSB0aGUgbnVtYmVycy4NCg0KSmFuZQ0K",
+    "01-input/inbox2.eml": "RnJvbTogTWUgPG1lQGV4YW1wbGUuY29tPg0KVG86IE1lIDxtZUBleGFtcGxlLmNvbT4NClN1YmplY3Q6IE5vdGUgdG8gc2VsZg0KRGF0ZTogRnJpLCAyNSBTZXAgMjAyNiAwNzowMDowMCArMTAwMA0KQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PXV0Zi04DQpDb250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiBiYXNlNjQNCg0KVW1WdFpXMWlaWElnZEdobElHMXBiR3N1Q2dyaWdKUUtDazFsYzNOaFoyVWdjbVZtTGlBNFJrdHVhamxVZURoa0NnbytJRTFsYzNOaA0KWjJVZ2NtVm1MaUJQVEVSU1JVWTVPVGs1Q2c9PQ0K",
+    "01-input/zz 3.eml": "RnJvbTogeEBleGFtcGxlLmNvbQ0KU3ViamVjdDogQW4gZXh0cmVtZWx5IGxvbmcgc3ViamVjdCBsaW5lIHRoYXQgZ29lcyBvbiBhbmQgb24gYWJvdXQgdGhlIHF1YXJ0ZXJseSBmaWd1cmVzDQpEYXRlOiBXZWQsIDE2IFNlcCAyMDI2IDEyOjAwOjAwICswMDAwDQoNClRleHQNCg0KTWVzc2FnZSAgcmVmLjogIExvbmdSZWZfMTIzNDU2DQo=",
+    "05-reference/2026-01-01-hand-filed.eml": "RnJvbTogPT9pc28tODg1OS0xP3E/Sm9zPUU5Pz0gPGpvc2VAZXhhbXBsZS5lcz4NClRvOiBtZUBleGFtcGxlLmNvbQ0KU3ViamVjdDogPT9pc28tODg1OS0xP3E/SW5mb3JtYWNpPUYzbj89DQpEYXRlOiBUaHUsIDI0IFNlcCAyMDI2IDEyOjAwOjAwICswMjAwDQpDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9aXNvLTg4NTktMQ0KQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogcXVvdGVkLXByaW50YWJsZQ0KDQpIb2xhLCBhcXU9RUQgZXN0PUUxIGxhIGluZm9ybWFjaT1GM24gcXVlIHBlZD1FRHM9DQp0ZSwgY29uIHVuYSBsPUVEbmVhIGxhcmdhLg0KPSANCkZpbg0K"
+   },
+   "state": {
+    "files": [
+     "01-input/dup.eml",
+     "01-input/inbox1.eml",
+     "01-input/inbox2.eml",
+     "01-input/zz 3.eml",
+     "05-reference/2026-01-01-hand-filed.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,\"Closed with gone.eml\"\r\nvanished.eml,,,\r\n"
+   }
+  },
+  {
+   "op": "ingest",
+   "moved": [
+    [
+     "dup.eml",
+     "2026-09-30-project-pudding-budget.eml",
+     ""
+    ],
+    [
+     "inbox1.eml",
+     "2026-09-30-project-pudding-budget-2.eml",
+     ""
+    ],
+    [
+     "inbox2.eml",
+     "2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "8FKnj9Tx8d"
+    ],
+    [
+     "zz 3.eml",
+     "2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "LongRef_123456"
+    ]
+   ],
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "02-triage/2026-09-30-project-pudding-budget-2.eml",
+     "02-triage/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget.eml,,,,,,,2026-09-30,,,,\r\n"
+   }
+  },
+  {
+   "op": "alloc",
+   "argv": [
+    "2026-09-30-project-pudding-budget.eml",
+    "actionable"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "02-triage/2026-09-30-project-pudding-budget-2.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget.eml,,,,,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "alloc",
+   "argv": [
+    "2026-09-30-project-pudding-budget.eml",
+    "actionable"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "02-triage/2026-09-30-project-pudding-budget-2.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget.eml,,,,,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "alloc",
+   "argv": [
+    "2026-09-30-project-pudding-budget-2.eml",
+    "archive"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,,,,,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "alloc",
+   "argv": [
+    "2026-09-30-project-pudding-budget-2.eml",
+    "triage"
+   ],
+   "code": 1,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,,,,,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "metadata",
+   "argv": [
+    "2026-09-30-project-pudding-budget.eml",
+    "set",
+    "next_action",
+    "=",
+    "Reply",
+    "by",
+    "Friday",
+    "#urgent"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,,,Reply by Friday #urgent,,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "metadata",
+   "argv": [
+    "2026-09-30-project-pudding-budget.eml",
+    "set",
+    "general_notes",
+    "=",
+    "Multi\nline, \"quoted\""
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "metadata",
+   "argv": [
+    "2026-09-30-project-pudding-budget.eml",
+    "set",
+    "due_date",
+    "=",
+    "end of Q3"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "pin",
+   "argv": [
+    "2026-09-30-project-pudding-budget.eml"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,pinned,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "pin",
+   "argv": [
+    "2026-09-30-project-pudding-budget.eml"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,,2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,pinned,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "metadata",
+   "argv": [
+    "2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+    "set",
+    "flags",
+    "=",
+    "a,  b"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,\"a,  b\",2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,pinned,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "pin",
+   "argv": [
+    "2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,\"a, b pinned\",2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,pinned,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "unpin",
+   "argv": [
+    "2026-09-30-project-pudding-budget.eml"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "02-triage/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,,,8FKnj9Tx8d,\"a, b pinned\",2026-09-30,,,,\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "close",
+   "argv": [
+    "2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+    "with",
+    "2026-09-30-project-pudding-budget.eml"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,Closed with 2026-09-30-project-pudding-budget.eml,,8FKnj9Tx8d,\"a, b pinned\",2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "close",
+   "argv": [
+    "2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+    "with",
+    "2026-09-30-project-pudding-budget.eml"
+   ],
+   "code": 1,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,Closed with 2026-09-30-project-pudding-budget.eml,,8FKnj9Tx8d,\"a, b pinned\",2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "close",
+   "argv": [
+    "2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+    "with",
+    "missing.eml"
+   ],
+   "code": 1,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "05-reference/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,Closed with 2026-09-30-project-pudding-budget.eml,,8FKnj9Tx8d,\"a, b pinned\",2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "alloc",
+   "argv": [
+    "2026-01-01-hand-filed.eml",
+    "archive"
+   ],
+   "code": 0,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "06-archive/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,2026-09-30\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,Closed with 2026-09-30-project-pudding-budget.eml,,8FKnj9Tx8d,\"a, b pinned\",2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "metadata_check",
+   "code": 1,
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "06-archive/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,,,,,2026-09-30\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,Closed with 2026-09-30-project-pudding-budget.eml,,8FKnj9Tx8d,\"a, b pinned\",2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  },
+  {
+   "op": "autofix",
+   "fixes": [
+    {
+     "filename": "2026-01-01-hand-filed.eml",
+     "folder": "06-archive",
+     "field": "ds_triage",
+     "old": "",
+     "new": "2026-09-30",
+     "phase": "date-backfill"
+    },
+    {
+     "filename": "2026-01-01-hand-filed.eml",
+     "folder": "06-archive",
+     "field": "ds_actionable",
+     "old": "",
+     "new": "2026-09-30",
+     "phase": "date-backfill"
+    },
+    {
+     "filename": "2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "folder": "06-archive",
+     "field": "ds_actionable",
+     "old": "",
+     "new": "2026-09-30",
+     "phase": "date-backfill"
+    },
+    {
+     "filename": "2026-09-30-project-pudding-budget-2.eml",
+     "folder": "06-archive",
+     "field": "ds_actionable",
+     "old": "",
+     "new": "2026-09-30",
+     "phase": "date-backfill"
+    }
+   ],
+   "blockers": [],
+   "state": {
+    "files": [
+     "02-triage/2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml",
+     "03-actionable/2026-09-30-project-pudding-budget.eml",
+     "06-archive/2026-01-01-hand-filed.eml",
+     "06-archive/2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml",
+     "06-archive/2026-09-30-project-pudding-budget-2.eml"
+    ],
+    "metadata_csv": "eml_filename,general_notes,project,next_action,due_date,message_ref,flags,ds_triage,ds_actionable,ds_delegated,ds_reference,ds_archive\r\n2026-01-01-hand-filed.eml,\"note, with comma\",Proj,Closed with gone.eml,,,,2026-09-30,2026-09-30,,,2026-09-30\r\n2026-09-16-an-extremely-long-subject-ref-LongRef_123456.eml,,,,,LongRef_123456,,2026-09-30,,,,\r\n2026-09-25-note-to-self-ref-8FKnj9Tx8d.eml,,,Closed with 2026-09-30-project-pudding-budget.eml,,8FKnj9Tx8d,\"a, b pinned\",2026-09-30,2026-09-30,,,2026-09-30\r\n2026-09-30-project-pudding-budget-2.eml,,,,,,,2026-09-30,2026-09-30,,,2026-09-30\r\n2026-09-30-project-pudding-budget.eml,\"Multi\nline, \"\"quoted\"\"\",,Reply by Friday #urgent,end of Q3,,,2026-09-30,2026-09-30,,,\r\n"
+   }
+  }
+ ]
+}

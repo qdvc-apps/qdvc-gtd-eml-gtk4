@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e8ede6"/>
+    </linearGradient>
+    <linearGradient id="flap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a9c3a0"/><stop offset="1" stop-color="#7fa077"/>
+    </linearGradient>
+    <linearGradient id="seal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#57e389"/><stop offset="1" stop-color="#26a269"/>
+    </linearGradient>
+  </defs>
+  <!-- base / shadow side (GNOME icons sit on a darker "edge") -->
+  <rect x="12" y="30" width="104" height="76" rx="10" fill="#5e7a57"/>
+  <rect x="12" y="26" width="104" height="76" rx="10" fill="url(#body)"/>
+  <!-- lower folds -->
+  <path d="M16 98 L56 64 Q64 58 72 64 L112 98" fill="none" stroke="#c6d3c1" stroke-width="3"
+        stroke-linejoin="round"/>
+  <!-- flap -->
+  <path d="M14 34 Q14 28 22 28 L106 28 Q114 28 114 34 L72 68 Q64 74 56 68 Z" fill="url(#flap)"/>
+  <path d="M14 34 L56 68 Q64 74 72 68 L114 34" fill="none" stroke="#5e7a57" stroke-width="2"
+        stroke-linejoin="round" opacity=".5"/>
+  <!-- check seal -->
+  <circle cx="92" cy="88" r="25" fill="#1f7a4d"/>
+  <circle cx="92" cy="85" r="25" fill="url(#seal)"/>
+  <path d="M80 85 L89 94 L105 76" fill="none" stroke="#ffffff" stroke-width="7"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

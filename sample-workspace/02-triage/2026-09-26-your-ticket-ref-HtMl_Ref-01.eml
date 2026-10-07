@@ -1,0 +1,7 @@
+From: Service <svc@example.com>
+To: me@example.com
+Subject: Your ticket
+Date: Sat, 26 Sep 2026 10:00:00 +0000
+Content-Type: text/html; charset=utf-8
+
+<html><body><p>Thanks.</p><p>Message ref: HtMl_Ref-01</p></body></html>

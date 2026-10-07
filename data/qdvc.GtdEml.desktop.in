@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=QDVC GTD EML
+GenericName=GTD Email Workflow
+Comment=Work a Getting Things Done workflow over .eml files
+Exec=@EXEC@ %F
+Icon=qdvc.GtdEml
+Terminal=false
+Categories=Office;Email;ProjectManagement;
+Keywords=GTD;Getting Things Done;email;eml;inbox;triage;
+StartupNotify=true
+StartupWMClass=qdvc-gtd-eml

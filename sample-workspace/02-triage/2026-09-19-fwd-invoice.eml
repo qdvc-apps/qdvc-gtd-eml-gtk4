@@ -1,0 +1,19 @@
+From: Me <me@example.com>
+To: me.home@example.org
+Subject: Fwd: Invoice
+Date: Sat, 19 Sep 2026 13:00:00 +0000
+Content-Type: multipart/mixed; boundary=fw
+
+--fw
+Content-Type: text/plain
+
+Forwarding this.
+--fw
+Content-Type: message/rfc822
+
+From: Billing <bill@example.com>
+Subject: Invoice
+Content-Type: text/plain
+
+Invoice body
+--fw--

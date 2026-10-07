@@ -1,0 +1,40 @@
+/* QDVC GTD EML — the few styles libadwaita does not provide. Colours come
+   from Adwaita's named colours, so light, dark and high contrast all work. */
+
+.age-dot { min-width: 8px; min-height: 8px; border-radius: 4px; margin-top: 7px; }
+.age-green { background: @success_color; }
+.age-yellow { background: @warning_color; }
+.age-red { background: @error_color; }
+.age-none { background: alpha(currentColor, .25); }
+
+.tag { border-radius: 99px; padding: 1px 8px; font-size: smaller; font-weight: 600;
+       background: alpha(currentColor, .10); }
+.tag.accent { background: alpha(@accent_bg_color, .18); color: @accent_color; }
+.tag.success { background: alpha(@success_bg_color, .18); color: @success_color; }
+.tag.warning { background: alpha(@warning_bg_color, .22); color: @warning_color; }
+.tag.error { background: alpha(@error_bg_color, .18); color: @error_color; }
+
+.message-row { padding: 8px 6px 8px 2px; }
+.message-row.dimmed { opacity: .55; }
+.list-heading { padding: 14px 12px 4px 14px; }
+.faint { opacity: .55; }
+
+.stat-card { padding: 12px 14px; }
+.stat-value { font-size: 22pt; font-weight: 700; font-feature-settings: "tnum"; }
+.folder-count { font-size: 24pt; font-weight: 700; font-feature-settings: "tnum"; }
+
+.thread-card { padding: 12px 14px; }
+.notes-view { padding: 10px 12px; background: none; }
+.mono { font-family: monospace; }
+
+.heat-1 { background: alpha(@accent_bg_color, .18); }
+.heat-2 { background: alpha(@accent_bg_color, .36); }
+.heat-3 { background: alpha(@accent_bg_color, .55); }
+.heat-4 { background: alpha(@accent_bg_color, .75); color: @accent_fg_color; }
+.heat-5 { background: @accent_bg_color; color: @accent_fg_color; }
+.day-cell { min-height: 60px; border-radius: 8px; padding: 6px; }
+.day-today { box-shadow: inset 0 0 0 2px @accent_color; }
+.legend-swatch { min-width: 14px; min-height: 14px; border-radius: 4px; }
+
+.sidebar-indent { margin-left: 18px; }
+.account-dot { min-width: 8px; min-height: 8px; border-radius: 4px; }

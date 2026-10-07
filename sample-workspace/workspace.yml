@@ -1,0 +1,13 @@
+# workspace.yml — settings shared by the gtd CLI and QDVC GTD EML.
+max_filename_chars: 60
+green_max_days: 2
+yellow_max_days: 14
+my_own_accounts:
+  - email_address: me@example.com
+    display_name: "Work account"
+    colour: yellow
+  - email_address: me.home@example.org
+    display_name: "Home"
+    colour: magenta
+monitored_hashtags:
+  - "#urgent"
